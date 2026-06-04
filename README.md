@@ -63,23 +63,38 @@ Slash commands    ── /idea   → analyse with conversation context, store, r
 
 ## Install
 
+After any method below, **restart Claude Code** (or open a new session) so the skill and slash
+commands load.
+
+### Option A — `npx skills add` (no Bun package needed)
+
 ```bash
-bun add -g sparkidea     # get the package (provides the terminal CLI)
-sparkidea install        # install the skill (with bundled script) + /idea and /ideas commands
+npx skills add -g RayChang/sparkidea
 ```
 
-Then **restart Claude Code** (or open a new session) so the skill and slash commands load.
+This installs the self-contained skill (with its bundled script) into `~/.claude/skills/`. The
+skill works immediately via natural language ("幫我記一下…"). To also get the `/idea` and
+`/ideas` slash commands, run the one-time follow-up:
 
-<details>
-<summary>Install from a local clone (no npm)</summary>
+```bash
+bun run ~/.claude/skills/sparkidea/scripts/index.ts install
+```
+
+### Option B — Bun global package (adds the terminal CLI)
+
+```bash
+bun add -g sparkidea     # provides the `sparkidea` terminal CLI
+sparkidea install        # installs the skill + /idea and /ideas commands
+```
+
+### Option C — from a local clone
 
 ```bash
 git clone https://github.com/RayChang/sparkidea.git && cd sparkidea
 bun install
-bun link                          # optional: puts the global `sparkidea` CLI on PATH
-bun run src/index.ts install      # installs the skill + slash commands
+bun link                                          # optional: global `sparkidea` CLI on PATH
+bun run skills/sparkidea/scripts/index.ts install # installs the skill + slash commands
 ```
-</details>
 
 ## Usage
 
@@ -178,22 +193,24 @@ triggers. Existing databases are migrated automatically on open (`ALTER TABLE` +
 
 ```bash
 bun install
-bun run src/index.ts --help        # run the CLI from source
-bun run typecheck                  # tsc --noEmit
-SPARKIDEA_DB=/tmp/dev.db bun run src/index.ts add "test idea" --label demo
+bun run skills/sparkidea/scripts/index.ts --help   # run the CLI from source
+bun run typecheck                                   # tsc --noEmit
+SPARKIDEA_DB=/tmp/dev.db bun run skills/sparkidea/scripts/index.ts add "test idea" --label demo
 ```
 
-Source layout:
+Source layout — the skill directory is the single source of truth (it ships as-is via
+`npx skills add`, and the npm `bin` points into its `scripts/`):
 
 ```
-src/
-  index.ts      CLI dispatcher (add / search / list / install / uninstall)
-  actions.ts    add/search/list handlers + arg parsing
-  db.ts         bun:sqlite schema, migration, FTS5
-  context.ts    project name + git branch detection
-  install.ts    install/uninstall skill + slash commands
-skill/SKILL.md  behavioural contract (shipped into the skill folder)
-commands/       /idea and /ideas slash command templates
+skills/sparkidea/
+  SKILL.md             behavioural contract (analyse with context → store → one line)
+  commands/            /idea and /ideas slash command templates (travel with the skill)
+  scripts/
+    index.ts           CLI dispatcher (add / search / list / install / uninstall)
+    actions.ts         add/search/list handlers + arg parsing
+    db.ts              bun:sqlite schema, migration, FTS5
+    context.ts         project name + git branch detection
+    install.ts         install/uninstall skill + slash commands
 ```
 
 ## Uninstall

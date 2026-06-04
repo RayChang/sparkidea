@@ -2,20 +2,19 @@
   "name": "sparkidea",
   "version": "0.1.0",
   "description": "⚡ SparkIdea — a CLI + Claude Code skill that captures fleeting development ideas into SQLite without breaking your flow.",
-  "module": "src/index.ts",
+  "module": "skills/sparkidea/scripts/index.ts",
   "type": "module",
   "bin": {
-    "sparkidea": "src/index.ts"
+    "sparkidea": "skills/sparkidea/scripts/index.ts"
   },
   "files": [
-    "src",
-    "skill",
-    "commands",
-    "README.md"
+    "skills",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
-    "install:self": "bun run src/index.ts install",
-    "uninstall:self": "bun run src/index.ts uninstall",
+    "install:self": "bun run skills/sparkidea/scripts/index.ts install",
+    "uninstall:self": "bun run skills/sparkidea/scripts/index.ts uninstall",
     "typecheck": "bunx tsc --noEmit"
   },
   "keywords": [
