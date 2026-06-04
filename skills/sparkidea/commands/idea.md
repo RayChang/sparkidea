@@ -1,6 +1,6 @@
 ---
 description: ⚡ Capture a fleeting idea into SparkIdea (analysed with full conversation context)
-argument-hint: [your idea, optionally starting with #label]
+argument-hint: "[your idea, optionally starting with #label]"
 allowed-tools: Bash(bun run*)
 ---
 <!-- sparkidea-managed: do not edit; reinstalled by `sparkidea install` -->

@@ -1,6 +1,6 @@
 ---
 description: 🔍 Search and review ideas captured in SparkIdea
-argument-hint: [keyword] [#label] [@project] — all optional
+argument-hint: "[keyword] [#label] [@project] — all optional"
 allowed-tools: Bash(bun run*)
 ---
 <!-- sparkidea-managed: do not edit; reinstalled by `sparkidea install` -->
