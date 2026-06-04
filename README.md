@@ -1,5 +1,7 @@
 # ⚡ SparkIdea
 
+**English** ｜ [繁體中文](./README.zh-TW.md)
+
 > Capture fleeting development ideas while you code — without breaking flow.
 
 SparkIdea is a **CLI + Claude Code skill** that lets you jot down a thought, refactor idea, or
